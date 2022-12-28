@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using FluentAssertions;
 using Xunit;
 
@@ -6,16 +7,38 @@ namespace SupermarketReceipt.Test
 {
     public class SupermarketTest
     {
+
+        private SupermarketCatalog _catalog;
+        private Teller _teller;
+        //private ShoppingCart _theCart;
+        private Product _toothbrush;
+        private Product _rice;
+        private Product _apples;
+        private Product _cherryTomatoes;
+
+        public SupermarketTest()
+        {
+
+            _catalog = new FakeCatalog();
+            _teller = new Teller(_catalog);
+            //_theCart = new ShoppingCart();
+
+            _toothbrush = new Product("toothbrush", ProductUnit.Each);
+            _catalog.AddProduct(_toothbrush, 0.99);
+            _rice = new Product("rice", ProductUnit.Each);
+            _catalog.AddProduct(_rice, 2.99);
+            _apples = new Product("apples", ProductUnit.Kilo);
+            _catalog.AddProduct(_apples, 1.99);
+            _cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
+            _catalog.AddProduct(_cherryTomatoes, 0.69);
+        }
+
         [Fact]
         public void an_empty_cart_should_cost_nothing()
         {
-            SupermarketCatalog catalog = new FakeCatalog();
-
             var cart = new ShoppingCart();
 
-            var teller = new Teller(catalog);
-
-            var receipt = teller.GenerateReceipt(cart);
+            var receipt = _teller.GenerateReceipt(cart);
 
             receipt.GetTotalPrice().Should().Be(0);
         }
@@ -24,27 +47,19 @@ namespace SupermarketReceipt.Test
         public void TenPercentDiscount()
         {
             // ARRANGE
-            SupermarketCatalog catalog = new FakeCatalog();
-            var toothbrush = new Product("toothbrush", ProductUnit.Each);
-            catalog.AddProduct(toothbrush, 0.99);
-            var apples = new Product("apples", ProductUnit.Kilo);
-            catalog.AddProduct(apples, 1.99);
-
             var cart = new ShoppingCart();
-            cart.AddItemQuantity(apples, 2.5);
-
-            var teller = new Teller(catalog);
-            teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
+            cart.AddItemQuantity(_apples, 2.5);
+            _teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _toothbrush, 10.0);
 
             // ACT
-            var receipt = teller.GenerateReceipt(cart);
+            var receipt = _teller.GenerateReceipt(cart);
 
             // ASSERT
             Assert.Equal(4.975, receipt.GetTotalPrice());
             Assert.Equal(new List<Discount>(), receipt.GetDiscounts());
             Assert.Single(receipt.GetItems());
             var receiptItem = receipt.GetItems()[0];
-            Assert.Equal(apples, receiptItem.Product);
+            Assert.Equal(_apples, receiptItem.Product);
             Assert.Equal(1.99, receiptItem.Price);
             Assert.Equal(2.5 * 1.99, receiptItem.TotalPrice);
             Assert.Equal(2.5, receiptItem.Quantity);
