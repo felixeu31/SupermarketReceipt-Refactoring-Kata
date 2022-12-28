@@ -1,7 +1,7 @@
 # Identified smells
 
 - Receipt
-  - Passing a totalPrice parameter apart from quantity and price might led to inconsistent data
+  - [Done] Passing a totalPrice parameter apart from quantity and price might led to inconsistent data
 
 - ShoppingCart.HandleOffers has many dependencies (receipt, ...). 
   - It silently mutates the state of the passed Receipt instance (difficult to catch before goiing through the actual impmlementation)

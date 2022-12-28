@@ -10,7 +10,7 @@ namespace SupermarketReceipt
 
         public double GetTotalPrice()
         {
-            return _items.Sum(x => x.Quantity * x.Price)
+            return _items.Sum(x => x.TotalPrice)
                    + _discounts.Sum(x => x.DiscountAmount);
         }
 
