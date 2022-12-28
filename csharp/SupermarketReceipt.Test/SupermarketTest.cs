@@ -43,6 +43,21 @@ namespace SupermarketReceipt.Test
             receipt.GetTotalPrice().Should().Be(0);
         }
 
+
+        [Fact]
+        public void one_normal_item()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_apples, 2.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            var expectedPrice = 1.99 * 2.5;
+
+            receipt.GetTotalPrice().Should().Be(expectedPrice);
+        }
+
+
         [Fact]
         public void TenPercentDiscount()
         {
