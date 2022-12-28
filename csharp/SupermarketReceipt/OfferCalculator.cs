@@ -4,8 +4,10 @@ namespace SupermarketReceipt;
 
 public class OfferCalculator
 {
-    public static void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog, Dictionary<Product, double> productQuantities)
+    public static List<Discount> CalculateDiscounts(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, Dictionary<Product, double> productQuantities)
     {
+        List<Discount> discounts = new List<Discount>();
+
         foreach (var p in productQuantities.Keys)
         {
             var quantity = productQuantities[p];
@@ -47,8 +49,10 @@ public class OfferCalculator
                 }
 
                 if (discount != null)
-                    receipt.AddDiscount(discount);
+                    discounts.Add(discount);
             }
         }
+
+        return discounts;
     }
 }

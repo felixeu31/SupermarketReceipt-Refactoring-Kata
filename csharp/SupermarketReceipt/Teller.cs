@@ -29,7 +29,12 @@ namespace SupermarketReceipt
                 receipt.AddProduct(product, quantity, unitPrice);
             }
 
-            OfferCalculator.HandleOffers(receipt, _offers, _catalog, productQuantities);
+            var discounts = OfferCalculator.CalculateDiscounts(_offers, _catalog, productQuantities);
+
+            foreach (var discount in discounts)
+            {
+                receipt.AddDiscount(discount);
+            }
 
             return receipt;
         }
