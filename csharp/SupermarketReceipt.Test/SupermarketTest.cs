@@ -15,7 +15,7 @@ namespace SupermarketReceipt.Test
 
             var teller = new Teller(catalog);
 
-            var receipt = teller.ChecksOutArticlesFrom(cart);
+            var receipt = teller.GenerateReceipt(cart);
 
             receipt.GetTotalPrice().Should().Be(0);
         }
@@ -37,7 +37,7 @@ namespace SupermarketReceipt.Test
             teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
 
             // ACT
-            var receipt = teller.ChecksOutArticlesFrom(cart);
+            var receipt = teller.GenerateReceipt(cart);
 
             // ASSERT
             Assert.Equal(4.975, receipt.GetTotalPrice());

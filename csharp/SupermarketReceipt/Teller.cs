@@ -17,16 +17,16 @@ namespace SupermarketReceipt
             _offers[product] = new Offer(offerType, product, argument);
         }
 
-        public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)
+        public Receipt GenerateReceipt(ShoppingCart theCart)
         {
             var receipt = new Receipt();
             var productQuantities = theCart.GetItems();
-            foreach (var pq in productQuantities)
+            foreach (var productQuantity in productQuantities)
             {
-                var p = pq.Product;
-                var quantity = pq.Quantity;
-                var unitPrice = _catalog.GetUnitPrice(p);
-                receipt.AddProduct(p, quantity, unitPrice);
+                var product = productQuantity.Product;
+                var quantity = productQuantity.Quantity;
+                var unitPrice = _catalog.GetUnitPrice(product);
+                receipt.AddProduct(product, quantity, unitPrice);
             }
 
             theCart.HandleOffers(receipt, _offers, _catalog);
