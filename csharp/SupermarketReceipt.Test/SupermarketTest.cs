@@ -1,10 +1,25 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Xunit;
 
 namespace SupermarketReceipt.Test
 {
     public class SupermarketTest
     {
+        [Fact]
+        public void an_empty_cart_should_cost_nothing()
+        {
+            SupermarketCatalog catalog = new FakeCatalog();
+
+            var cart = new ShoppingCart();
+
+            var teller = new Teller(catalog);
+
+            var receipt = teller.ChecksOutArticlesFrom(cart);
+
+            receipt.GetTotalPrice().Should().Be(0);
+        }
+
         [Fact]
         public void TenPercentDiscount()
         {
