@@ -42,8 +42,7 @@ namespace SupermarketReceipt.Test
 
             receipt.GetTotalPrice().Should().Be(0);
         }
-
-
+        
         [Fact]
         public void one_normal_item()
         {
@@ -55,6 +54,20 @@ namespace SupermarketReceipt.Test
             var expectedPrice = 1.99 * 2.5;
 
             receipt.GetTotalPrice().Should().Be(expectedPrice);
+        }
+
+        [Fact]
+        public void buy_two_get_one_free()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItem(_toothbrush);
+            cart.AddItem(_toothbrush);
+            cart.AddItem(_toothbrush);
+            _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+
+            Receipt receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(0.99 * 2);
         }
 
 
