@@ -57,7 +57,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public void buy_two_get_one_free()
+        public void buy_three_get_one_free()
         {
             var cart = new ShoppingCart();
             cart.AddItem(_toothbrush);
@@ -68,6 +68,110 @@ namespace SupermarketReceipt.Test
             Receipt receipt = _teller.GenerateReceipt(cart);
 
             receipt.GetTotalPrice().Should().Be(0.99 * 2);
+        }
+
+
+        [Fact]
+        public void buy_five_get_one_free()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItem(_toothbrush);
+            cart.AddItem(_toothbrush);
+            cart.AddItem(_toothbrush);
+            cart.AddItem(_toothbrush);
+            cart.AddItem(_toothbrush);
+            _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+
+            Receipt receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(0.99 * 4);
+        }
+
+
+        [Fact]
+        public void percent_discount()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 5);
+            _teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _toothbrush, 10.0); 
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(4.455);
+        }
+
+
+        [Fact]
+        public void two_for_amount()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 2);
+            _teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, _toothbrush, 1.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(1.5);
+        }
+        [Fact]
+        public void two_for_amount_with_five()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 5);
+            _teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, _toothbrush, 1.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(3.99);
+        }
+
+        [Fact]
+        public void five_for_amount()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 5);
+            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(3.5);
+        }
+
+
+        [Fact]
+        public void five_for_amount_with_four()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 4);
+            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(3.96);
+        }
+
+
+        [Fact]
+        public void five_for_amount_with_six()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 6);
+            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(4.49);
+        }
+
+        [Fact]
+        public void five_for_amount_with_ten()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 10);
+            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(7);
         }
 
 
