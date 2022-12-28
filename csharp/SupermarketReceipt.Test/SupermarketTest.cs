@@ -166,12 +166,34 @@ namespace SupermarketReceipt.Test
         public void five_for_amount_with_ten()
         {
             var cart = new ShoppingCart();
-            cart.AddItemQuantity(_toothbrush, 10);
+            cart.AddItemQuantity(_toothbrush, 10.0);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
             receipt.GetTotalPrice().Should().Be(7);
+        }
+
+
+        [Fact]
+        public void five_for_amount_with_in_bunches()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothbrush, 1);
+            _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(7.0);
         }
 
 
