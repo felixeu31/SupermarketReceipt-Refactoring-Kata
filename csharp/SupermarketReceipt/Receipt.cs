@@ -14,9 +14,9 @@ namespace SupermarketReceipt
                    + _discounts.Sum(x => x.DiscountAmount);
         }
 
-        public void AddProduct(Product p, double quantity, double price, double totalPrice)
+        public void AddProduct(Product p, double quantity, double price)
         {
-            _items.Add(new ReceiptItem(p, quantity, price, totalPrice));
+            _items.Add(new ReceiptItem(p, quantity, price));
         }
 
         public List<ReceiptItem> GetItems()
@@ -37,17 +37,17 @@ namespace SupermarketReceipt
 
     public class ReceiptItem
     {
-        public ReceiptItem(Product p, double quantity, double price, double totalPrice)
+        public ReceiptItem(Product p, double quantity, double price)
         {
             Product = p;
             Quantity = quantity;
             Price = price;
-            TotalPrice = totalPrice;
         }
 
         public Product Product { get; }
         public double Price { get; }
-        public double TotalPrice { get; }
+        public double TotalPrice => Quantity * Price;
+
         public double Quantity { get; }
     }
 }

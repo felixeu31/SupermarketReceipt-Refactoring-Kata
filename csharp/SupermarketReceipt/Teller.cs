@@ -26,8 +26,7 @@ namespace SupermarketReceipt
                 var p = pq.Product;
                 var quantity = pq.Quantity;
                 var unitPrice = _catalog.GetUnitPrice(p);
-                var price = quantity * unitPrice;
-                receipt.AddProduct(p, quantity, unitPrice, price);
+                receipt.AddProduct(p, quantity, unitPrice);
             }
 
             theCart.HandleOffers(receipt, _offers, _catalog);

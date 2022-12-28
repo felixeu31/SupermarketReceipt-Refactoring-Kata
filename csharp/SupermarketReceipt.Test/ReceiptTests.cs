@@ -14,8 +14,8 @@ public class ReceiptTests
         Product product2 = new Product("product2", ProductUnit.Each);
 
         // Act
-        receipt.AddProduct(product1, 1, 1, 1);
-        receipt.AddProduct(product2, 1, 1, 1);
+        receipt.AddProduct(product1, 1, 1);
+        receipt.AddProduct(product2, 1, 1);
 
         // Assert
         var receiptItems = receipt.GetItems();
@@ -35,8 +35,8 @@ public class ReceiptTests
         Discount discount2 = new Discount(product1, "discount2", 0.1);
 
         // Act
-        receipt.AddProduct(product1, 1, 1, 1);
-        receipt.AddProduct(product2, 1, 1, 1);
+        receipt.AddProduct(product1, 1, 1);
+        receipt.AddProduct(product2, 1, 1);
         receipt.AddDiscount(discount1);
         receipt.AddDiscount(discount2);
 
@@ -56,8 +56,8 @@ public class ReceiptTests
         Product product2 = new Product("product2", ProductUnit.Each);
 
         // Act
-        receipt.AddProduct(product1, 1, 1, 1);
-        receipt.AddProduct(product2, 1, 1, 1);
+        receipt.AddProduct(product1, 1, 1);
+        receipt.AddProduct(product2, 1, 1);
 
         // Assert
         receipt.GetTotalPrice().Should().Be(2);
@@ -72,8 +72,8 @@ public class ReceiptTests
         Product product2 = new Product("product2", ProductUnit.Each);
 
         // Act
-        receipt.AddProduct(product1, 2, 1, 1);
-        receipt.AddProduct(product2, 1, 2, 1);
+        receipt.AddProduct(product1, 2, 1);
+        receipt.AddProduct(product2, 1, 2);
 
         // Assert
         receipt.GetTotalPrice().Should().Be(4);
@@ -91,9 +91,9 @@ public class ReceiptTests
         Discount discount2 = new Discount(product1, "discount2", -0.2);
 
         // Act
-        receipt.AddProduct(product1, 1, 1, 1);
-        receipt.AddProduct(repeatedProduct1, 1, 1, 1);
-        receipt.AddProduct(product2, 1, 1, 1);
+        receipt.AddProduct(product1, 1, 1);
+        receipt.AddProduct(repeatedProduct1, 1, 1);
+        receipt.AddProduct(product2, 1, 1);
         receipt.AddDiscount(discount1);
         receipt.AddDiscount(discount2);
 
