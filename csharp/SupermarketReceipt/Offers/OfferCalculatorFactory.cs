@@ -13,7 +13,7 @@ namespace SupermarketReceipt.Offers
             switch (offerType)
             {
                 case SpecialOfferType.ThreeForTwo:
-                    return null;
+                    return new NforMOfferCalculator(3, 2);
                 case SpecialOfferType.TenPercentDiscount:
                     return new PercentOfferCalculator(10.0);
                 case SpecialOfferType.TwoForAmount:

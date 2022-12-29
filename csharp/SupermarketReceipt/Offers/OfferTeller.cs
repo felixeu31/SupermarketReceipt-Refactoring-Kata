@@ -30,15 +30,6 @@ public class OfferTeller
 
     private static Discount CalculateDiscount(Offer offer, int quantityAsInt, double unitPrice, double quantity, Product product)
     {
-        Discount discount = null;
-        
-        if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
-        {
-            var numberOfChunks = quantityAsInt / 3;
-            var discountAmount = quantity * unitPrice - (numberOfChunks * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
-            return new Discount(product, "3 for 2", -discountAmount);
-        }
-
         var offerCalculator = OfferCalculatorFactory.CreateOfferCalculator(offer.OfferType, offer.Argument);
 
         return offerCalculator.CalculateDiscount(product, quantityAsInt,
