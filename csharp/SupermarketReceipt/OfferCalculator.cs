@@ -44,20 +44,22 @@ public class OfferCalculator
         else if (offer.OfferType == SpecialOfferType.TwoForAmount)
         {
             x = 2;
-            if (quantityAsInt >= 2)
-            {
-                var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
-                var discountN = unitPrice * quantity - total;
-                discount = new Discount(product, "2 for " + offer.Argument, -discountN);
-            }
         }
-
-        if (offer.OfferType == SpecialOfferType.FiveForAmount)
+        else if (offer.OfferType == SpecialOfferType.FiveForAmount)
         {
             x = 5;
         }
 
+        if (offer.OfferType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2)
+        {
+            var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+            var discountN = unitPrice * quantity - total;
+            discount = new Discount(product, "2 for " + offer.Argument, -discountN);
+        }
+
         var numberOfXs = quantityAsInt / x;
+
+
         if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
         {
             var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
