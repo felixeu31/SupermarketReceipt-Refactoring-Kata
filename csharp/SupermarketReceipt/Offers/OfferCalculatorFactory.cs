@@ -15,7 +15,7 @@ namespace SupermarketReceipt.Offers
                 case SpecialOfferType.ThreeForTwo:
                     return null;
                 case SpecialOfferType.TenPercentDiscount:
-                    return null;
+                    return new PercentOfferCalculator(10.0);
                 case SpecialOfferType.TwoForAmount:
                     return new NforAmountOfferCalculator(2, argument);
                 case SpecialOfferType.FiveForAmount:

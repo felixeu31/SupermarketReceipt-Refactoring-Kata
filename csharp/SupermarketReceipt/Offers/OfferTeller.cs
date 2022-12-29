@@ -31,40 +31,18 @@ public class OfferTeller
     private static Discount CalculateDiscount(Offer offer, int quantityAsInt, double unitPrice, double quantity, Product product)
     {
         Discount discount = null;
-
-
-        if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
-        {
-            return CalculatePercentDiscount(offer, unitPrice, quantity, product);
-        }
-
-        var chunkSize = offer.OfferType switch
-        {
-            SpecialOfferType.ThreeForTwo => 3,
-            SpecialOfferType.TwoForAmount => 2,
-            SpecialOfferType.FiveForAmount => 5,
-            _ => 1
-        };
-
-
-
-        var numberOfChunks = quantityAsInt / chunkSize;
-
+        
         if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
         {
+            var numberOfChunks = quantityAsInt / 3;
             var discountAmount = quantity * unitPrice - (numberOfChunks * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
-            discount = new Discount(product, "3 for 2", -discountAmount);
+            return new Discount(product, "3 for 2", -discountAmount);
         }
 
         var offerCalculator = OfferCalculatorFactory.CreateOfferCalculator(offer.OfferType, offer.Argument);
 
-        if (offer.OfferType is SpecialOfferType.TwoForAmount or SpecialOfferType.FiveForAmount)
-        {
-            return offerCalculator.CalculateDiscount(product, quantityAsInt,
-                unitPrice);
-        }
-
-        return discount;
+        return offerCalculator.CalculateDiscount(product, quantityAsInt,
+            unitPrice);
     }
 
     private static Discount CalculatePercentDiscount(Offer offer, double unitPrice, double quantity, Product product)
