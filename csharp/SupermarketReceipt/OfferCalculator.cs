@@ -36,29 +36,22 @@ public class OfferCalculator
             return CalculatePercentDiscount(offer, unitPrice, quantity, product);
         }
 
-        var chunkSize = 1;
-        if (offer.OfferType == SpecialOfferType.ThreeForTwo)
+        var chunkSize = offer.OfferType switch
         {
-            chunkSize = 3;
-        }
-        else if (offer.OfferType == SpecialOfferType.TwoForAmount)
-        {
-            chunkSize = 2;
-        }
-        else if (offer.OfferType == SpecialOfferType.FiveForAmount)
-        {
-            chunkSize = 5;
-        }
-
-        if (offer.OfferType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2)
-        {
-            var total = offer.Argument * (quantityAsInt / chunkSize) + quantityAsInt % 2 * unitPrice;
-            var discountN = unitPrice * quantity - total;
-            discount = new Discount(product, "2 for " + offer.Argument, -discountN);
-        }
+            SpecialOfferType.ThreeForTwo => 3,
+            SpecialOfferType.TwoForAmount => 2,
+            SpecialOfferType.FiveForAmount => 5,
+            _ => 1
+        };
 
         var numberOfChunks = quantityAsInt / chunkSize;
 
+        if (offer.OfferType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2)
+        {
+            var total = offer.Argument * numberOfChunks + quantityAsInt % 2 * unitPrice;
+            var discountN = unitPrice * quantity - total;
+            discount = new Discount(product, "2 for " + offer.Argument, -discountN);
+        }
 
         if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
         {
