@@ -17,6 +17,9 @@ namespace SupermarketReceipt.Offers
 
         public Discount CalculateDiscount(int quantity, double unitPrice)
         {
+            if (quantity == 0)
+                return null;
+
             return new Discount(_product, _percent + "% off", -quantity * unitPrice * _percent / 100.0);
         }
     }
