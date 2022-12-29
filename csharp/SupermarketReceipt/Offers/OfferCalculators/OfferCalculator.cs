@@ -1,7 +1,7 @@
 ﻿using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
 
-namespace SupermarketReceipt.Offers;
+namespace SupermarketReceipt.Offers.OfferCalculators;
 
 public interface IOfferCalculator
 {

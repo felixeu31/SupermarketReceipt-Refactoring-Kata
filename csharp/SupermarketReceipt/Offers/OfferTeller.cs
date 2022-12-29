@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SupermarketReceipt.Offers.OfferCalculators;
 using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
 

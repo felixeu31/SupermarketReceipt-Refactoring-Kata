@@ -2,7 +2,7 @@
 using SupermarketReceipt.Receipts;
 using System;
 
-namespace SupermarketReceipt.Offers
+namespace SupermarketReceipt.Offers.OfferCalculators
 {
     public class PercentOfferCalculator : IOfferCalculator
     {

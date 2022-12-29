@@ -1,7 +1,7 @@
 ﻿using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
 
-namespace SupermarketReceipt.Offers
+namespace SupermarketReceipt.Offers.OfferCalculators
 {
     public class NforMOfferCalculator : IOfferCalculator
     {
@@ -15,7 +15,7 @@ namespace SupermarketReceipt.Offers
             _nChunkSize = nChunkSize;
             _mChunkSize = mChunkSize;
         }
-        
+
 
         public Discount CalculateDiscount(int quantity, double unitPrice)
         {

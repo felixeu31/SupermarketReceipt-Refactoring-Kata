@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupermarketReceipt.Offers
+namespace SupermarketReceipt.Offers.OfferCalculators
 {
     public static class OfferCalculatorFactory
     {
