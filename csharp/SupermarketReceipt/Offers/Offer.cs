@@ -12,16 +12,16 @@ namespace SupermarketReceipt.Offers
 
     public class Offer
     {
-        private Product _product;
 
         public Offer(SpecialOfferType offerType, Product product, double argument)
         {
             OfferType = offerType;
             Argument = argument;
-            _product = product;
+            Product = product;
         }
 
         public SpecialOfferType OfferType { get; }
         public double Argument { get; }
-    }
+        public Product Product { get; }
+}
 }

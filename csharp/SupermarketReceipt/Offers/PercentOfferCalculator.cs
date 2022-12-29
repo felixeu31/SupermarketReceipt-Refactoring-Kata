@@ -4,18 +4,20 @@ using System;
 
 namespace SupermarketReceipt.Offers
 {
-    public class PercentOfferCalculator : OfferCalculator
+    public class PercentOfferCalculator : IOfferCalculator
     {
+        private readonly Product _product;
         private readonly double _percent;
 
-        public PercentOfferCalculator(double percent)
+        public PercentOfferCalculator(Product product, double percent)
         {
+            _product = product;
             _percent = percent;
         }
 
-        public Discount CalculateDiscount(Product product, int quantity, double unitPrice)
+        public Discount CalculateDiscount(int quantity, double unitPrice)
         {
-            return new Discount(product, _percent + "% off", -quantity * unitPrice * _percent / 100.0);
+            return new Discount(_product, _percent + "% off", -quantity * unitPrice * _percent / 100.0);
         }
     }
 }

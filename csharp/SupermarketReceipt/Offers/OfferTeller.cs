@@ -23,7 +23,7 @@ public class OfferTeller
 
             var offerCalculator = OfferCalculatorFactory.CreateOfferCalculator(offer);
 
-            var discount = offerCalculator.CalculateDiscount(product, quantity, unitPrice);
+            var discount = offerCalculator.CalculateDiscount(quantity, unitPrice);
 
             if (discount != null)
                 discounts.Add(discount);

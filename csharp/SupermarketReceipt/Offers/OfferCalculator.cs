@@ -3,7 +3,7 @@ using SupermarketReceipt.Receipts;
 
 namespace SupermarketReceipt.Offers;
 
-public interface OfferCalculator
+public interface IOfferCalculator
 {
-    Discount CalculateDiscount(Product product, int quantity, double unitPrice);
+    Discount CalculateDiscount(int quantity, double unitPrice);
 }

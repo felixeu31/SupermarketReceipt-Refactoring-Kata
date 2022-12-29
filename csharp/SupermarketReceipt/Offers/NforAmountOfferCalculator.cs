@@ -3,18 +3,20 @@ using SupermarketReceipt.Receipts;
 
 namespace SupermarketReceipt.Offers
 {
-    public class NforAmountOfferCalculator : OfferCalculator
+    public class NforAmountOfferCalculator : IOfferCalculator
     {
+        private readonly Product _product;
         private readonly int _chunkSize;
         private readonly double _amount;
 
-        public NforAmountOfferCalculator(int chunkSize, double amount)
+        public NforAmountOfferCalculator(Product product, int chunkSize, double amount)
         {
+            _product = product;
             _chunkSize = chunkSize;
             _amount = amount;
         }
 
-        public Discount CalculateDiscount(Product product, int quantity, double unitPrice)
+        public Discount CalculateDiscount(int quantity, double unitPrice)
         {
             var numberOfChunks = quantity / _chunkSize;
 
@@ -31,7 +33,7 @@ namespace SupermarketReceipt.Offers
 
             var discountTotal = totalPriceWithoutDiscounts - totalPriceWithDiscounts;
 
-            return new Discount(product, _chunkSize + " for " + _amount, -discountTotal);
+            return new Discount(_product, _chunkSize + " for " + _amount, -discountTotal);
         }
     }
 }
