@@ -8,20 +8,20 @@ namespace SupermarketReceipt.Offers
 {
     public static class OfferCalculatorFactory
     {
-        public static OfferCalculator CreateOfferCalculator(SpecialOfferType offerType, double argument)
+        public static OfferCalculator CreateOfferCalculator(Offer offer)
         {
-            switch (offerType)
+            switch (offer.OfferType)
             {
                 case SpecialOfferType.ThreeForTwo:
                     return new NforMOfferCalculator(3, 2);
                 case SpecialOfferType.TenPercentDiscount:
                     return new PercentOfferCalculator(10.0);
                 case SpecialOfferType.TwoForAmount:
-                    return new NforAmountOfferCalculator(2, argument);
+                    return new NforAmountOfferCalculator(2, offer.Argument);
                 case SpecialOfferType.FiveForAmount:
-                    return new NforAmountOfferCalculator(5, argument);
+                    return new NforAmountOfferCalculator(5, offer.Argument);
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(offerType), offerType, null);
+                    throw new ArgumentOutOfRangeException(nameof(offer.OfferType), offer.OfferType, null);
             }
         }
     }
