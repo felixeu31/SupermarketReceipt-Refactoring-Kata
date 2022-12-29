@@ -46,23 +46,16 @@ public class OfferCalculator
 
         var numberOfChunks = quantityAsInt / chunkSize;
 
-        if (offer.OfferType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2)
-        {
-            var total = offer.Argument * numberOfChunks + quantityAsInt % 2 * unitPrice;
-            var discountN = unitPrice * quantity - total;
-            discount = new Discount(product, "2 for " + offer.Argument, -discountN);
-        }
-
         if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
         {
             var discountAmount = quantity * unitPrice - (numberOfChunks * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
             discount = new Discount(product, "3 for 2", -discountAmount);
         }
 
-        if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
+        if (offer.OfferType is SpecialOfferType.TwoForAmount or SpecialOfferType.FiveForAmount)
         {
-            var discountTotal = unitPrice * quantity - (offer.Argument * numberOfChunks + quantityAsInt % 5 * unitPrice);
-            discount = new Discount(product, chunkSize + " for " + offer.Argument, -discountTotal);
+            return new NforAmountOfferCalculator(chunkSize, offer.Argument).CalculateDiscount(product, quantityAsInt,
+                unitPrice);
         }
 
         return discount;
