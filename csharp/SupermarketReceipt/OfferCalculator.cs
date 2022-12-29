@@ -29,6 +29,13 @@ public class OfferCalculator
     private static Discount CalculateDiscount(Offer offer, int quantityAsInt, double unitPrice, double quantity, Product product)
     {
         Discount discount = null;
+
+
+        if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
+        {
+            return CalculatePercentDiscount(offer, unitPrice, quantity, product);
+        }
+
         var x = 1;
         if (offer.OfferType == SpecialOfferType.ThreeForTwo)
         {
@@ -45,7 +52,11 @@ public class OfferCalculator
             }
         }
 
-        if (offer.OfferType == SpecialOfferType.FiveForAmount) x = 5;
+        if (offer.OfferType == SpecialOfferType.FiveForAmount)
+        {
+            x = 5;
+        }
+
         var numberOfXs = quantityAsInt / x;
         if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
         {
@@ -53,8 +64,6 @@ public class OfferCalculator
             discount = new Discount(product, "3 for 2", -discountAmount);
         }
 
-        if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
-            discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
         if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
         {
             var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
@@ -62,5 +71,10 @@ public class OfferCalculator
         }
 
         return discount;
+    }
+
+    private static Discount CalculatePercentDiscount(Offer offer, double unitPrice, double quantity, Product product)
+    {
+        return new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
     }
 }
