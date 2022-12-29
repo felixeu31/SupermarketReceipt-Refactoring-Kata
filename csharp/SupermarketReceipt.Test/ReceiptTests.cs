@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using SupermarketReceipt.Products;
+using SupermarketReceipt.Receipts;
 using Xunit;
 
 namespace SupermarketReceipt.Test;

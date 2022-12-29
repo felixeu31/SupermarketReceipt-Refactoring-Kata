@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using SupermarketReceipt.Products;
+using SupermarketReceipt.Receipts;
 
-namespace SupermarketReceipt;
+namespace SupermarketReceipt.Offers;
 
 public class OfferCalculator
 {
@@ -13,10 +15,10 @@ public class OfferCalculator
             if (!offers.ContainsKey(product)) continue;
 
             var quantity = productQuantities[product];
-            var quantityAsInt = (int) quantity;
+            var quantityAsInt = (int)quantity;
             var offer = offers[product];
             var unitPrice = catalog.GetUnitPrice(product);
-            
+
             var discount = CalculateDiscount(offer, quantityAsInt, unitPrice, quantity, product);
 
             if (discount != null)

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using FluentAssertions;
+using SupermarketReceipt.Offers;
+using SupermarketReceipt.Products;
+using SupermarketReceipt.Receipts;
 using Xunit;
 
 namespace SupermarketReceipt.Test

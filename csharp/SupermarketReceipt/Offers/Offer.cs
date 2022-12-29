@@ -1,4 +1,6 @@
-namespace SupermarketReceipt
+using SupermarketReceipt.Products;
+
+namespace SupermarketReceipt.Offers
 {
     public enum SpecialOfferType
     {

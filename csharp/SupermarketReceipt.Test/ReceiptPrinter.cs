@@ -1,5 +1,7 @@
 using System.Globalization;
 using System.Text;
+using SupermarketReceipt.Products;
+using SupermarketReceipt.Receipts;
 
 namespace SupermarketReceipt
 {

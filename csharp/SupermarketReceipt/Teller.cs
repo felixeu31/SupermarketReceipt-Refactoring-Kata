@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using SupermarketReceipt.Offers;
+using SupermarketReceipt.Products;
+using SupermarketReceipt.Receipts;
 
 namespace SupermarketReceipt
 {

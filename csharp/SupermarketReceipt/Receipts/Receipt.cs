@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using SupermarketReceipt.Products;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Receipts
 {
     public class Receipt
     {

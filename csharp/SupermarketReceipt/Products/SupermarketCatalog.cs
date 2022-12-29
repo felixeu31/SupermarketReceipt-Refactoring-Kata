@@ -1,4 +1,4 @@
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Products
 {
     public interface SupermarketCatalog
     {
