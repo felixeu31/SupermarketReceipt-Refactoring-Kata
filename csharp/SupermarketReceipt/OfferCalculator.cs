@@ -36,40 +36,40 @@ public class OfferCalculator
             return CalculatePercentDiscount(offer, unitPrice, quantity, product);
         }
 
-        var x = 1;
+        var chunkSize = 1;
         if (offer.OfferType == SpecialOfferType.ThreeForTwo)
         {
-            x = 3;
+            chunkSize = 3;
         }
         else if (offer.OfferType == SpecialOfferType.TwoForAmount)
         {
-            x = 2;
+            chunkSize = 2;
         }
         else if (offer.OfferType == SpecialOfferType.FiveForAmount)
         {
-            x = 5;
+            chunkSize = 5;
         }
 
         if (offer.OfferType == SpecialOfferType.TwoForAmount && quantityAsInt >= 2)
         {
-            var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+            var total = offer.Argument * (quantityAsInt / chunkSize) + quantityAsInt % 2 * unitPrice;
             var discountN = unitPrice * quantity - total;
             discount = new Discount(product, "2 for " + offer.Argument, -discountN);
         }
 
-        var numberOfXs = quantityAsInt / x;
+        var numberOfChunks = quantityAsInt / chunkSize;
 
 
         if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
         {
-            var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
+            var discountAmount = quantity * unitPrice - (numberOfChunks * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
             discount = new Discount(product, "3 for 2", -discountAmount);
         }
 
         if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
         {
-            var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-            discount = new Discount(product, x + " for " + offer.Argument, -discountTotal);
+            var discountTotal = unitPrice * quantity - (offer.Argument * numberOfChunks + quantityAsInt % 5 * unitPrice);
+            discount = new Discount(product, chunkSize + " for " + offer.Argument, -discountTotal);
         }
 
         return discount;
