@@ -3,7 +3,7 @@ using SupermarketReceipt.Receipts;
 
 namespace SupermarketReceipt.Offers
 {
-    public class NforAmountOfferCalculator
+    public class NforAmountOfferCalculator : OfferCalculator
     {
         private readonly int _chunkSize;
         private readonly double _amount;

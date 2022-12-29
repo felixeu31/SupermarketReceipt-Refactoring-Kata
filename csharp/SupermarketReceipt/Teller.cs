@@ -32,7 +32,7 @@ namespace SupermarketReceipt
                 receipt.AddProduct(product, quantity, unitPrice);
             }
 
-            var discounts = OfferCalculator.CalculateDiscounts(_offers, _catalog, productQuantities);
+            var discounts = OfferTeller.CalculateDiscounts(_offers, _catalog, productQuantities);
 
             foreach (var discount in discounts)
             {
