@@ -5,9 +5,7 @@ namespace SupermarketReceipt
 {
     public class ShoppingCart
     {
-        private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
-        private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
-
+        private readonly Dictionary<Product, double> _productQuantities = new();
 
         public Dictionary<Product, double> GetItems()
         {
@@ -19,10 +17,8 @@ namespace SupermarketReceipt
             AddItemQuantity(product, 1.0);
         }
 
-
         public void AddItemQuantity(Product product, double quantity)
         {
-            _items.Add(new ProductQuantity(product, quantity));
             if (_productQuantities.ContainsKey(product))
             {
                 var newAmount = _productQuantities[product] + quantity;

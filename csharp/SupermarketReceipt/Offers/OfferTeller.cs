@@ -7,6 +7,10 @@ namespace SupermarketReceipt.Offers;
 
 public class OfferTeller
 {
+
+    // How can I test this class. It has a collaborator instantiated by a factory.
+    // Do i want to test this class without the collaborator taking place.
+    // Does it mean I have a bad design for this class??
     public static List<Discount> CalculateDiscounts(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, Dictionary<Product, double> productQuantities)
     {
         List<Discount> discounts = new List<Discount>();
@@ -31,5 +35,6 @@ public class OfferTeller
         }
 
         return discounts;
+
     }
 }
