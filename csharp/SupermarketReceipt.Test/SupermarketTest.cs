@@ -18,6 +18,7 @@ namespace SupermarketReceipt.Test
         private Product _rice;
         private Product _apples;
         private Product _cherryTomatoes;
+        private Product _toothpaste;
 
         public SupermarketTest()
         {
@@ -27,7 +28,9 @@ namespace SupermarketReceipt.Test
             //_theCart = new ShoppingCart();
 
             _toothbrush = new Product("toothbrush", ProductUnit.Each);
+            _toothpaste = new Product("toothpaste", ProductUnit.Each);
             _catalog.AddProduct(_toothbrush, 0.99);
+            _catalog.AddProduct(_toothpaste, 1.79);
             _rice = new Product("rice", ProductUnit.Each);
             _catalog.AddProduct(_rice, 2.99);
             _apples = new Product("apples", ProductUnit.Kilo);
@@ -220,6 +223,18 @@ namespace SupermarketReceipt.Test
             Assert.Equal(1.99, receiptItem.Price);
             Assert.Equal(2.5 * 1.99, receiptItem.TotalPrice);
             Assert.Equal(2.5, receiptItem.Quantity);
+        }
+
+        [Fact]
+        public void discount_when_bundle()
+        {
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 1);
+            cart.AddItemQuantity(_toothpaste, 1);
+
+            var receipt = _teller.GenerateReceipt(cart);
+
+            receipt.GetTotalPrice().Should().Be(2.5020000000000002);
         }
     }
 }

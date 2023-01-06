@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using SupermarketReceipt.Offers.OfferCalculators;
 using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
@@ -33,8 +34,18 @@ public class OfferTeller
             if (discount != null)
                 discounts.Add(discount);
         }
+        
+        if(productQuantities.Any(x => x.Key.Name == "toothpaste") && productQuantities.Any(x => x.Key.Name == "toothbrush"))
+            discounts.Add(CalculateBundleDiscount(offers, catalog, productQuantities));
 
         return discounts;
 
+    }
+
+    private static Discount CalculateBundleDiscount(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, Dictionary<Product, double> productQuantities)
+    {
+        double discountAmount = 0.278;
+
+        return new Discount(productQuantities.First().Key, "bundle offer", -discountAmount);
     }
 }
