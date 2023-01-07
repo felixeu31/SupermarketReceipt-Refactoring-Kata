@@ -23,11 +23,11 @@ namespace SupermarketReceipt
             _offers.Add(OfferCalculatorFactory.CreateOfferCalculator(offerType, product, argument));
         }
 
-        public void AddBundleOffer(SpecialOfferType offerType, Product product, double argument)
+        public void AddBundleOffer(SpecialOfferType offerType, Bundle bundle, double argument)
         {
-            _offers.Add(OfferCalculatorFactory.CreateOfferCalculator(offerType, product, argument));
+            _offers.Add(new BundlePercentOffer(bundle, argument));
         }
-
+        
         public Receipt GenerateReceipt(ShoppingCart theCart)
         {
             var receipt = new Receipt();
@@ -63,18 +63,8 @@ namespace SupermarketReceipt
                     discounts.Add(discount);
             }
 
-            if (productQuantities.Any(x => x.Product.Name == "toothpaste") && productQuantities.Any(x => x.Product.Name == "toothbrush"))
-                discounts.Add(CalculateBundleDiscount(_catalog, productQuantities));
-
             return discounts;
 
-        }
-
-        private static Discount CalculateBundleDiscount(SupermarketCatalog catalog, List<ProductQuantity> productQuantities)
-        {
-            double discountAmount = 0.278;
-
-            return new Discount(productQuantities.First().Product, "bundle offer", -discountAmount);
         }
     }
 }

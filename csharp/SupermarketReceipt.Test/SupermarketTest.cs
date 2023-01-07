@@ -228,12 +228,17 @@ namespace SupermarketReceipt.Test
         [Fact]
         public void discount_when_bundle()
         {
+            // Arrange
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 1);
             cart.AddItemQuantity(_toothpaste, 1);
+            var bundle = new Bundle(new ProductQuantity(_toothbrush, 1), new ProductQuantity(_toothpaste, 1));
+            _teller.AddBundleOffer(SpecialOfferType.BundlePercentDiscount, bundle, 10.0);
 
+            // Act
             var receipt = _teller.GenerateReceipt(cart);
 
+            // Assert
             receipt.GetTotalPrice().Should().Be(2.5020000000000002);
         }
     }
