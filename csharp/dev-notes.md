@@ -18,3 +18,11 @@
   - [Done] Move each offer calculator to specific class
   - [Done] Create factory of offer calculators
   - [Done] Use polimorfism to calculate discount
+
+
+# New feature
+- It is required a new type of offer for bundles
+  - It has a big difference between normal offers because it is not related to a single product
+  - It is time now to decide what kind of abstraction fits better for the purpose of this new type of offer. 
+    - It is a different type of object? Does it have any similiraty with the actual offer object.
+    - It is a good idea to start creating a new type of object and then see what are the similarities?
