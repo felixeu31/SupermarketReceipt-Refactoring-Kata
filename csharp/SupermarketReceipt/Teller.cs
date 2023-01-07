@@ -8,7 +8,7 @@ namespace SupermarketReceipt
     public class Teller
     {
         private readonly SupermarketCatalog _catalog;
-        private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
+        private readonly List<Offer> _offers = new();
 
         public Teller(SupermarketCatalog catalog)
         {
@@ -17,7 +17,7 @@ namespace SupermarketReceipt
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
         {
-            _offers[product] = new Offer(offerType, product, argument);
+            _offers.Add(new Offer(offerType, product, argument));
         }
 
         public Receipt GenerateReceipt(ShoppingCart theCart)
