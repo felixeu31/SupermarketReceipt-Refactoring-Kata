@@ -227,7 +227,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public void discount_when_bundle()
+        public void discount_when_single_bundle()
         {
             // Arrange
             var cart = new ShoppingCart();
@@ -241,6 +241,23 @@ namespace SupermarketReceipt.Test
 
             // Assert
             receipt.GetTotalPrice().Should().Be(2.5020000000000002);
+        }
+
+        [Fact]
+        public void discount_when_two_completed_bundles()
+        {
+            // Arrange
+            var cart = new ShoppingCart();
+            cart.AddItemQuantity(_toothbrush, 2);
+            cart.AddItemQuantity(_toothpaste, 2);
+            var bundle = new Bundle(new ProductQuantity(_toothbrush, 1), new ProductQuantity(_toothpaste, 1));
+            _teller.AddBundleOffer(OfferType.BundlePercentDiscount, bundle, 10.0);
+
+            // Act
+            var receipt = _teller.GenerateReceipt(cart);
+
+            // Assert
+            receipt.GetTotalPrice().Should().Be(5.0040000000000004);
         }
     }
 }
