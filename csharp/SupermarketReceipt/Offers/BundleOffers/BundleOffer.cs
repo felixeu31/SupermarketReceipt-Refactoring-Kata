@@ -8,7 +8,7 @@ namespace SupermarketReceipt.Offers.BundleOffers
 {
     public class BundleOffer
     {
-        public Bundle Bundle { get; }
+        protected readonly Bundle Bundle;
         public BundleOffer(Bundle bundle, params ProductQuantity[] productQuantities)
         {
             Bundle = bundle;

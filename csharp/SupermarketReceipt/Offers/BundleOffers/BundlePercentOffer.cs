@@ -17,9 +17,13 @@ namespace SupermarketReceipt.Offers.BundleOffers
 
         public Discount CalculateDiscount(List<ProductQuantity> productQuantities, SupermarketCatalog catalog)
         {
-            double discountAmount = 0.278;
+            var bundlePrice = Bundle.CalculateBundlePrice(catalog);
+
+            double discountAmount = bundlePrice * _percent / 100;
 
             return new Discount(productQuantities.First().Product, "bundle offer", -discountAmount);
         }
+
+        
     }
 }
