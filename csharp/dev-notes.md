@@ -21,8 +21,11 @@
 
 
 # New feature
-- It is required a new type of offer for bundles
-  - It has a big difference between normal offers because it is not related to a single product
-  - It is time now to decide what kind of abstraction fits better for the purpose of this new type of offer. 
-    - It is a different type of object? Does it have any similiraty with the actual offer object.
-    - It is a good idea to start creating a new type of object and then see what are the similarities?
+- [Done]It is required a new type of offer for bundles
+  - [Done]It has a big difference between normal offers because it is not related to a single product
+    - It is time now to decide what kind of abstraction fits better for the purpose of this new type of offer. 
+      - It is a different type of object? Does it have any similiraty with the actual offer object.
+      - It is a good idea to start creating a new type of object and then see what are the similarities?
+    - The abstraction for offer was removed and substituted for the IOffer interface, then all types of offers (products and bundles types) implement the same interface but are builded with different information. All offers calculates discounts based on a catalog a productQuantity list provided by the teller  
+  - Introduce new tests for bundle offers
+  - Discount product and description for bundles
