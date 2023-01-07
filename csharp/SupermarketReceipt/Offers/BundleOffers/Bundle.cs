@@ -27,5 +27,24 @@ namespace SupermarketReceipt.Offers.BundleOffers
 
             return bundlePrice;
         }
+
+        public int CalculateCompletedBundles(List<ProductQuantity> productQuantities)
+        {
+            int? completedBundles = null;
+
+            foreach (var bundleProductQuantity in ProductsQuantities)
+            {
+                var existingProductQuantity = productQuantities.FirstOrDefault(x => Equals(x.Product, bundleProductQuantity.Product));
+                
+                if (existingProductQuantity == null) { return 0; }
+
+                var productChunks = Convert.ToInt32(existingProductQuantity.Quantity / bundleProductQuantity.Quantity);
+
+                if (completedBundles == null || productChunks < completedBundles)
+                    completedBundles = productChunks;
+            }
+
+            return completedBundles.GetValueOrDefault();
+        }
     }
 }
