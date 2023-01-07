@@ -44,11 +44,8 @@ namespace SupermarketReceipt
             return receipt;
         }
 
-        // How can I test this class. It has a collaborator instantiated by a factory.
-        // Do i want to test this class without the collaborator taking place.
-        // Does it mean I have a bad design for this class??
-        // Should i use it as a pitch point (Working effectively with legacy code)
-        public List<Discount> CalculateDiscounts(List<ProductQuantity> productQuantities)
+        
+        private List<Discount> CalculateDiscounts(List<ProductQuantity> productQuantities)
         {
             List<Discount> discounts = new List<Discount>();
 
@@ -66,7 +63,7 @@ namespace SupermarketReceipt
 
                 var offerCalculator = OfferCalculatorFactory.CreateOfferCalculator(offer);
 
-                var discount = offerCalculator.CalculateDiscount(quantity, unitPrice);
+                var discount = offerCalculator.CalculateDiscount(productQuantities, _catalog);
 
                 if (discount != null)
                     discounts.Add(discount);

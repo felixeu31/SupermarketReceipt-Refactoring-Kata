@@ -1,24 +1,35 @@
 ﻿using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SupermarketReceipt.Offers.OfferCalculators
 {
-    public class NforMOfferCalculator : IOfferCalculator
+    public class NforMOffer : ProductOffer, IOfferCalculator
     {
-        private readonly Product _product;
         private readonly int _nChunkSize;
         private readonly int _mChunkSize;
 
-        public NforMOfferCalculator(Product product, int nChunkSize, int mChunkSize)
+        public NforMOffer(Product product, int nChunkSize, int mChunkSize) : base(product)
         {
-            _product = product;
             _nChunkSize = nChunkSize;
             _mChunkSize = mChunkSize;
         }
 
 
-        public Discount CalculateDiscount(int quantity, double unitPrice)
+        public Discount CalculateDiscount(List<ProductQuantity> productQuantities, SupermarketCatalog catalog)
         {
+            var productQuantity = productQuantities.FirstOrDefault(x => Equals(x.Product, _product));
+
+            if (productQuantity == null)
+            {
+                return null;
+            }
+
+            var quantity = (int)productQuantity.Quantity;
+
+            var unitPrice = catalog.GetUnitPrice(_product);
+
             var numberOfChunks = quantity / _nChunkSize;
 
             if (numberOfChunks == 0)
