@@ -7,19 +7,19 @@ using SupermarketReceipt.Products;
 
 namespace SupermarketReceipt.Offers.OfferCalculators
 {
-    public static class OfferCalculatorFactory
+    public static class ProductOfferFactory
     {
-        public static IOfferCalculator CreateOfferCalculator(SpecialOfferType offerType, Product product, double argument)
+        public static IOffer CreateOfferCalculator(OfferType offerType, Product product, double argument)
         {
             switch (offerType)
             {
-                case SpecialOfferType.ThreeForTwo:
+                case OfferType.ThreeForTwo:
                     return new NforMOffer(product, 3, 2);
-                case SpecialOfferType.TenPercentDiscount:
+                case OfferType.TenPercentDiscount:
                     return new PercentOffer(product, 10.0);
-                case SpecialOfferType.TwoForAmount:
+                case OfferType.TwoForAmount:
                     return new NforAmountOffer(product, 2, argument);
-                case SpecialOfferType.FiveForAmount:
+                case OfferType.FiveForAmount:
                     return new NforAmountOffer(product, 5, argument);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(offerType), offerType, null);

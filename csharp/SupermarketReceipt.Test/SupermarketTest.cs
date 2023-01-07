@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using FluentAssertions;
 using SupermarketReceipt.Offers;
+using SupermarketReceipt.Offers.BundleOffers;
 using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
 using Xunit;
@@ -69,7 +70,7 @@ namespace SupermarketReceipt.Test
             cart.AddItem(_toothbrush);
             cart.AddItem(_toothbrush);
             cart.AddItem(_toothbrush);
-            _teller.AddProductOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            _teller.AddProductOffer(OfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
 
             Receipt receipt = _teller.GenerateReceipt(cart);
 
@@ -86,7 +87,7 @@ namespace SupermarketReceipt.Test
             cart.AddItem(_toothbrush);
             cart.AddItem(_toothbrush);
             cart.AddItem(_toothbrush);
-            _teller.AddProductOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            _teller.AddProductOffer(OfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
 
             Receipt receipt = _teller.GenerateReceipt(cart);
 
@@ -99,7 +100,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 5);
-            _teller.AddProductOffer(SpecialOfferType.TenPercentDiscount, _toothbrush, 10.0); 
+            _teller.AddProductOffer(OfferType.TenPercentDiscount, _toothbrush, 10.0); 
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -112,7 +113,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 2);
-            _teller.AddProductOffer(SpecialOfferType.TwoForAmount, _toothbrush, 1.5);
+            _teller.AddProductOffer(OfferType.TwoForAmount, _toothbrush, 1.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -123,7 +124,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 5);
-            _teller.AddProductOffer(SpecialOfferType.TwoForAmount, _toothbrush, 1.5);
+            _teller.AddProductOffer(OfferType.TwoForAmount, _toothbrush, 1.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -135,7 +136,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 5);
-            _teller.AddProductOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+            _teller.AddProductOffer(OfferType.FiveForAmount, _toothbrush, 3.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -148,7 +149,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 4);
-            _teller.AddProductOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+            _teller.AddProductOffer(OfferType.FiveForAmount, _toothbrush, 3.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -161,7 +162,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 6);
-            _teller.AddProductOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+            _teller.AddProductOffer(OfferType.FiveForAmount, _toothbrush, 3.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -173,7 +174,7 @@ namespace SupermarketReceipt.Test
         {
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_toothbrush, 10.0);
-            _teller.AddProductOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+            _teller.AddProductOffer(OfferType.FiveForAmount, _toothbrush, 3.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -195,7 +196,7 @@ namespace SupermarketReceipt.Test
             cart.AddItemQuantity(_toothbrush, 1);
             cart.AddItemQuantity(_toothbrush, 1);
             cart.AddItemQuantity(_toothbrush, 1);
-            _teller.AddProductOffer(SpecialOfferType.FiveForAmount, _toothbrush, 3.5);
+            _teller.AddProductOffer(OfferType.FiveForAmount, _toothbrush, 3.5);
 
             var receipt = _teller.GenerateReceipt(cart);
 
@@ -209,7 +210,7 @@ namespace SupermarketReceipt.Test
             // ARRANGE
             var cart = new ShoppingCart();
             cart.AddItemQuantity(_apples, 2.5);
-            _teller.AddProductOffer(SpecialOfferType.TenPercentDiscount, _toothbrush, 10.0);
+            _teller.AddProductOffer(OfferType.TenPercentDiscount, _toothbrush, 10.0);
 
             // ACT
             var receipt = _teller.GenerateReceipt(cart);
@@ -233,7 +234,7 @@ namespace SupermarketReceipt.Test
             cart.AddItemQuantity(_toothbrush, 1);
             cart.AddItemQuantity(_toothpaste, 1);
             var bundle = new Bundle(new ProductQuantity(_toothbrush, 1), new ProductQuantity(_toothpaste, 1));
-            _teller.AddBundleOffer(SpecialOfferType.BundlePercentDiscount, bundle, 10.0);
+            _teller.AddBundleOffer(OfferType.BundlePercentDiscount, bundle, 10.0);
 
             // Act
             var receipt = _teller.GenerateReceipt(cart);

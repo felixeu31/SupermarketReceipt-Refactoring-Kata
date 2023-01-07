@@ -1,4 +1,5 @@
-﻿using SupermarketReceipt.Products;
+﻿using SupermarketReceipt.Offers.ProductOffers;
+using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace SupermarketReceipt.Offers.OfferCalculators
 {
-    public class PercentOffer : ProductOffer, IOfferCalculator
+    public class PercentOffer : ProductOffer, IOffer
     {
         private readonly double _percent;
 

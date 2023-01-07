@@ -1,11 +1,12 @@
-﻿using SupermarketReceipt.Products;
+﻿using SupermarketReceipt.Offers.ProductOffers;
+using SupermarketReceipt.Products;
 using SupermarketReceipt.Receipts;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SupermarketReceipt.Offers.OfferCalculators
 {
-    public class NforMOffer : ProductOffer, IOfferCalculator
+    public class NforMOffer : ProductOffer, IOffer
     {
         private readonly int _nChunkSize;
         private readonly int _mChunkSize;

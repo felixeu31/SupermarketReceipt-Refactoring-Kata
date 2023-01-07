@@ -2,9 +2,9 @@
 using SupermarketReceipt.Receipts;
 using System.Collections.Generic;
 
-namespace SupermarketReceipt.Offers.OfferCalculators;
+namespace SupermarketReceipt.Offers;
 
-public interface IOfferCalculator
+public interface IOffer
 {
     Discount CalculateDiscount(List<ProductQuantity> productQuantities, SupermarketCatalog catalog);
 }

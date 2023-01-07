@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SupermarketReceipt.Offers.OfferCalculators
+namespace SupermarketReceipt.Offers.BundleOffers
 {
-    public class BundlePercentOffer : BundleOffer, IOfferCalculator
+    public class BundlePercentOffer : BundleOffer, IOffer
     {
         private readonly double _percent;
 
-        public BundlePercentOffer(Bundle bundle, double percent) : base (bundle)
+        public BundlePercentOffer(Bundle bundle, double percent) : base(bundle)
         {
             _percent = percent;
         }

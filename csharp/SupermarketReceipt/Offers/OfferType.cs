@@ -1,6 +1,6 @@
 namespace SupermarketReceipt.Offers;
 
-public enum SpecialOfferType
+public enum OfferType
 {
     ThreeForTwo,
     TenPercentDiscount,
