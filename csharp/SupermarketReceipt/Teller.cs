@@ -33,6 +33,7 @@ namespace SupermarketReceipt
         {
             var receipt = new Receipt();
             var productQuantities = theCart.GetItems();
+
             foreach (var productQuantity in productQuantities)
             {
                 var product = productQuantity.Product;
@@ -41,31 +42,15 @@ namespace SupermarketReceipt
                 receipt.AddProduct(product, quantity, unitPrice);
             }
 
-            var discounts = CalculateDiscounts(productQuantities);
-
-            foreach (var discount in discounts)
-            {
-                receipt.AddDiscount(discount);
-            }
-
-            return receipt;
-        }
-
-        
-        private List<Discount> CalculateDiscounts(List<ProductQuantity> productQuantities)
-        {
-            List<Discount> discounts = new List<Discount>();
-
             foreach (var offer in _offers)
             {
                 var discount = offer.CalculateDiscount(productQuantities, _catalog);
 
                 if (discount != null)
-                    discounts.Add(discount);
+                    receipt.AddDiscount(discount);
             }
 
-            return discounts;
-
+            return receipt;
         }
     }
 }
