@@ -36,10 +36,8 @@ namespace SupermarketReceipt
 
             foreach (var productQuantity in productQuantities)
             {
-                var product = productQuantity.Product;
-                var quantity = productQuantity.Quantity;
-                var unitPrice = _catalog.GetUnitPrice(product);
-                receipt.AddProduct(product, quantity, unitPrice);
+                var unitPrice = _catalog.GetUnitPrice(productQuantity.Product);
+                receipt.AddProduct(productQuantity.Product, productQuantity.Quantity, unitPrice);
             }
 
             foreach (var offer in _offers)
