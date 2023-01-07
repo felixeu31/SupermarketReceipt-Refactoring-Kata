@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SupermarketReceipt.Offers;
@@ -10,16 +11,21 @@ namespace SupermarketReceipt
     public class Teller
     {
         private readonly SupermarketCatalog _catalog;
-        private readonly List<Offer> _offers = new();
+        private readonly List<IOfferCalculator> _offers = new();
 
         public Teller(SupermarketCatalog catalog)
         {
             _catalog = catalog;
         }
 
-        public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
+        public void AddProductOffer(SpecialOfferType offerType, Product product, double argument)
         {
-            _offers.Add(new Offer(offerType, product, argument));
+            _offers.Add(OfferCalculatorFactory.CreateOfferCalculator(offerType, product, argument));
+        }
+
+        public void AddBundleOffer(SpecialOfferType offerType, Product product, double argument)
+        {
+            _offers.Add(OfferCalculatorFactory.CreateOfferCalculator(offerType, product, argument));
         }
 
         public Receipt GenerateReceipt(ShoppingCart theCart)
@@ -51,19 +57,7 @@ namespace SupermarketReceipt
 
             foreach (var offer in _offers)
             {
-                var productQuantity = productQuantities.FirstOrDefault(x => Equals(x.Product, offer.Product));
-
-                if (productQuantity == null)
-                {
-                    continue;
-                }
-
-                var quantity = (int)productQuantity.Quantity;
-                var unitPrice = _catalog.GetUnitPrice(offer.Product);
-
-                var offerCalculator = OfferCalculatorFactory.CreateOfferCalculator(offer);
-
-                var discount = offerCalculator.CalculateDiscount(productQuantities, _catalog);
+                var discount = offer.CalculateDiscount(productQuantities, _catalog);
 
                 if (discount != null)
                     discounts.Add(discount);

@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SupermarketReceipt.Products;
 
 namespace SupermarketReceipt.Offers.OfferCalculators
 {
     public static class OfferCalculatorFactory
     {
-        public static IOfferCalculator CreateOfferCalculator(Offer offer)
+        public static IOfferCalculator CreateOfferCalculator(SpecialOfferType offerType, Product product, double argument)
         {
-            switch (offer.OfferType)
+            switch (offerType)
             {
                 case SpecialOfferType.ThreeForTwo:
-                    return new NforMOffer(offer.Product, 3, 2);
+                    return new NforMOffer(product, 3, 2);
                 case SpecialOfferType.TenPercentDiscount:
-                    return new PercentOffer(offer.Product, 10.0);
+                    return new PercentOffer(product, 10.0);
                 case SpecialOfferType.TwoForAmount:
-                    return new NforAmountOffer(offer.Product, 2, offer.Argument);
+                    return new NforAmountOffer(product, 2, argument);
                 case SpecialOfferType.FiveForAmount:
-                    return new NforAmountOffer(offer.Product, 5, offer.Argument);
+                    return new NforAmountOffer(product, 5, argument);
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(offer.OfferType), offer.OfferType, null);
+                    throw new ArgumentOutOfRangeException(nameof(offerType), offerType, null);
             }
         }
     }
