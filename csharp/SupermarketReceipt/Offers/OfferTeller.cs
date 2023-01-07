@@ -14,18 +14,20 @@ public class OfferTeller
     // Do i want to test this class without the collaborator taking place.
     // Does it mean I have a bad design for this class??
     // Should i use it as a pitch point (Working effectively with legacy code)
-    public static List<Discount> CalculateDiscounts(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, Dictionary<Product, double> productQuantities)
+    public static List<Discount> CalculateDiscounts(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, List<ProductQuantity> productQuantities)
     {
         List<Discount> discounts = new List<Discount>();
 
         foreach (var offer in offers)
         {
-            if (!productQuantities.ContainsKey(offer.Key))
+            var productQuantity = productQuantities.FirstOrDefault(x => Equals(x.Product, offer.Key));
+
+            if (productQuantity == null)
             {
                 continue;
             }
 
-            var quantity = (int)productQuantities[offer.Key];
+            var quantity = (int)productQuantity.Quantity;
             var unitPrice = catalog.GetUnitPrice(offer.Key);
 
             var offerCalculator = OfferCalculatorFactory.CreateOfferCalculator(offer.Value);
@@ -36,17 +38,17 @@ public class OfferTeller
                 discounts.Add(discount);
         }
         
-        if(productQuantities.Any(x => x.Key.Name == "toothpaste") && productQuantities.Any(x => x.Key.Name == "toothbrush"))
+        if(productQuantities.Any(x => x.Product.Name == "toothpaste") && productQuantities.Any(x => x.Product.Name == "toothbrush"))
             discounts.Add(CalculateBundleDiscount(offers, catalog, productQuantities));
 
         return discounts;
 
     }
 
-    private static Discount CalculateBundleDiscount(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, Dictionary<Product, double> productQuantities)
+    private static Discount CalculateBundleDiscount(Dictionary<Product, Offer> offers, SupermarketCatalog catalog, List<ProductQuantity> productQuantities)
     {
         double discountAmount = 0.278;
 
-        return new Discount(productQuantities.First().Key, "bundle offer", -discountAmount);
+        return new Discount(productQuantities.First().Product, "bundle offer", -discountAmount);
     }
 }

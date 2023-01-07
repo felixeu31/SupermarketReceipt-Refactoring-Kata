@@ -1,13 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using SupermarketReceipt.Products;
 
 namespace SupermarketReceipt
 {
     public class ShoppingCart
     {
-        private readonly Dictionary<Product, double> _productQuantities = new();
+        private readonly List<ProductQuantity> _productQuantities = new();
 
-        public Dictionary<Product, double> GetItems()
+        public List<ProductQuantity> GetItems()
         {
             return _productQuantities;
         }
@@ -19,14 +20,15 @@ namespace SupermarketReceipt
 
         public void AddItemQuantity(Product product, double quantity)
         {
-            if (_productQuantities.ContainsKey(product))
+            var existingProduct = _productQuantities.FirstOrDefault(x => Equals(x.Product, product));
+
+            if (existingProduct != null)
             {
-                var newAmount = _productQuantities[product] + quantity;
-                _productQuantities[product] = newAmount;
+                existingProduct.AddQuantity(quantity);
             }
             else
             {
-                _productQuantities.Add(product, quantity);
+                _productQuantities.Add(new ProductQuantity(product, quantity));
             }
         }
     }

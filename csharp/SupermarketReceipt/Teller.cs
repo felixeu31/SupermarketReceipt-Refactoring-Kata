@@ -26,8 +26,8 @@ namespace SupermarketReceipt
             var productQuantities = theCart.GetItems();
             foreach (var productQuantity in productQuantities)
             {
-                var product = productQuantity.Key;
-                var quantity = productQuantity.Value;
+                var product = productQuantity.Product;
+                var quantity = productQuantity.Quantity;
                 var unitPrice = _catalog.GetUnitPrice(product);
                 receipt.AddProduct(product, quantity, unitPrice);
             }
